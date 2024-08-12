@@ -185,12 +185,11 @@ dependencies = [
 
 [[package]]
 name = "escpos"
-version = "0.12.2"
+version = "0.13.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "d61072257bf7231b08a87c29e904ccdc1e7e140b3af19b865ba98aaa19eeaa48"
+checksum = "3c7d61cce41765728a5cc38db21c07468cb1e78323ad6a6fdc6a690e5a68ed0f"
 dependencies = [
  "encoding_rs",
- "lazy_static",
  "log",
  "serialport",
 ]
@@ -258,12 +257,6 @@ dependencies = [
  "clap",
  "escpos",
 ]
-
-[[package]]
-name = "lazy_static"
-version = "1.5.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "bbd2bcb4c963f2ddae06a2efc7e9f3591312473c50c6685e1f298068316e66fe"
 
 [[package]]
 name = "libc"
