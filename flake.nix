@@ -5,9 +5,9 @@
   };
 
   outputs = {
-    self,
     nixpkgs,
     flake-utils,
+    ...
   }:
     flake-utils.lib.eachDefaultSystem (
       system: let
@@ -19,7 +19,7 @@
         buildInputs = with pkgs; [systemd];
 
         lintingRustFlags = "-D unused-crate-dependencies";
-      in rec {
+      in {
         devShell = pkgs.mkShell {
           nativeBuildInputs = nativeBuildInputs;
           buildInputs = buildInputs;
