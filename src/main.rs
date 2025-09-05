@@ -8,7 +8,7 @@ use escpos::{
     printer::Printer,
     utils::{JustifyMode, Protocol},
 };
-use miette::{IntoDiagnostic, Result, miette};
+use miette::{miette, IntoDiagnostic, Result};
 use std::{io::BufRead, time::Duration};
 
 /// Format and print secrets using dumb receipt/POS printers.
