@@ -5,7 +5,10 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
-anyhow = "1.0.99"
+miette = { version = "7.2.0", features = ["fancy"] }
 chrono = "0.4.41"
 clap = { version = "4.5.39", features = ["derive"] }
-escpos = { version = "0.15.2", features = ["serial_port"] }
+escpos = { version = "0.16.0", features = ["serial_port"] }
+
+[lints.rust]
+unused_crate_dependencies = "deny"

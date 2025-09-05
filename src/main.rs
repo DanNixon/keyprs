@@ -2,13 +2,13 @@ mod printer;
 mod text;
 
 use crate::text::Lines;
-use anyhow::{anyhow, Result};
 use clap::{Args, Parser};
 use escpos::{
     driver::{Driver, SerialPortDriver},
     printer::Printer,
     utils::{JustifyMode, Protocol},
 };
+use miette::{miette, IntoDiagnostic, Result};
 use std::{io::BufRead, time::Duration};
 
 /// Format and print secrets using dumb receipt/POS printers.
@@ -54,7 +54,8 @@ fn main() -> Result<()> {
 
     let mut printer = if let Some(port) = cli.printer.serial_port {
         let driver =
-            SerialPortDriver::open(&port, cli.printer.serial_baud, Some(Duration::from_secs(5)))?;
+            SerialPortDriver::open(&port, cli.printer.serial_baud, Some(Duration::from_secs(5)))
+                .into_diagnostic()?;
         let mut printer = Printer::new(driver.clone(), Protocol::default(), None);
         init_and_check_printer(&driver, &mut printer)?;
         Some(printer)
@@ -63,8 +64,8 @@ fn main() -> Result<()> {
     };
 
     if let Some(printer) = printer.as_mut() {
-        printer.justify(JustifyMode::LEFT)?;
-        printer.reset_size()?;
+        printer.justify(JustifyMode::LEFT).into_diagnostic()?;
+        printer.reset_size().into_diagnostic()?;
     }
 
     println!(
@@ -79,15 +80,15 @@ fn main() -> Result<()> {
     for line in lines {
         println!("{line}");
         if let Some(printer) = printer.as_mut() {
-            printer.writeln(&line)?;
+            printer.writeln(&line).into_diagnostic()?;
         }
     }
     println!("~~~");
 
     if let Some(printer) = printer.as_mut() {
-        printer.reset_size()?;
-        printer.feed()?;
-        printer.print_cut()?;
+        printer.reset_size().into_diagnostic()?;
+        printer.feed().into_diagnostic()?;
+        printer.print_cut().into_diagnostic()?;
 
         println!();
         println!("👀 Be sure to verify the printed output matches the above text!");
@@ -97,15 +98,15 @@ fn main() -> Result<()> {
 }
 
 fn init_and_check_printer<D: Driver>(driver: &D, printer: &mut Printer<D>) -> Result<()> {
-    printer.init()?;
+    printer.init().into_diagnostic()?;
 
     println!("🔍 Checking printer is ready...");
-    if printer::check_online(driver, printer)? {
+    if printer::check_online(driver, printer).into_diagnostic()? {
         println!("✅ Printer is online.");
         println!();
         Ok(())
     } else {
-        Err(anyhow!("Printer is offline"))
+        Err(miette!("Printer is offline"))
     }
 }
 
