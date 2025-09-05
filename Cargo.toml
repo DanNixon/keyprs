@@ -9,4 +9,3 @@ miette = { version = "7.2.0", features = ["fancy"] }
 chrono = "0.4.41"
 clap = { version = "4.5.39", features = ["derive"] }
 escpos = { version = "0.16.0", features = ["serial_port"] }
-serialport = "4.7.3"
