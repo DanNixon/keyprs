@@ -10,10 +10,10 @@ impl TextType for AgeSecretKey {
             return false;
         }
 
-        if let Some(first) = lines.first() {
-            if first.starts_with(PREFIX) {
-                return true;
-            }
+        if let Some(first) = lines.first()
+            && first.starts_with(PREFIX)
+        {
+            return true;
         }
 
         false

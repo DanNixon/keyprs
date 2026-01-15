@@ -2,9 +2,9 @@ version: 2
 
 updates:
   - package-ecosystem: cargo
-    directory: "/"
+    directory: "."
     schedule:
-      interval: "monthly"
+      interval: quarterly
     groups:
       cargo-dependencies:
         patterns:
@@ -13,4 +13,4 @@ updates:
   - package-ecosystem: github-actions
     directory: "/"
     schedule:
-      interval: "monthly"
+      interval: quarterly
