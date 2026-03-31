@@ -64,31 +64,39 @@ fn main() -> Result<()> {
     };
 
     if let Some(printer) = printer.as_mut() {
-        printer.justify(JustifyMode::LEFT).into_diagnostic()?;
-        printer.reset_size().into_diagnostic()?;
+        printer
+            .justify(JustifyMode::LEFT)
+            .into_diagnostic()?
+            .reset_size()
+            .into_diagnostic()?;
     }
 
     println!(
         "📃 I {} print the following:",
-        match printer {
-            Some(_) => "will",
-            None => "would",
-        }
+        if printer.is_some() { "will" } else { "would" }
     );
 
     println!("~~~");
     for line in lines {
         println!("{line}");
         if let Some(printer) = printer.as_mut() {
-            printer.writeln(&line).into_diagnostic()?;
+            printer
+                .writeln(&line)
+                .into_diagnostic()?
+                .print()
+                .into_diagnostic()?;
         }
     }
     println!("~~~");
 
     if let Some(printer) = printer.as_mut() {
-        printer.reset_size().into_diagnostic()?;
-        printer.feed().into_diagnostic()?;
-        printer.print_cut().into_diagnostic()?;
+        printer
+            .reset_size()
+            .into_diagnostic()?
+            .feed()
+            .into_diagnostic()?
+            .print_cut()
+            .into_diagnostic()?;
 
         println!();
         println!("👀 Be sure to verify the printed output matches the above text!");
