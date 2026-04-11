@@ -2,6 +2,9 @@
 version = 2
 db-path = "~/.cargo/advisory-db"
 db-urls = [ "https://github.com/rustsec/advisory-db" ]
+ignore = [
+  "RUSTSEC-2024-0436"
+]
 
 [licenses]
 version = 2
@@ -10,8 +13,10 @@ allow = [
   "Apache-2.0",
   "Unicode-3.0",
   "BSD-3-Clause",
+  "BSD-2-Clause",
   "MPL-2.0",
   "ISC",
+  "NCSA",
 ]
 
 [bans]
