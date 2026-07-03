@@ -7,7 +7,7 @@ edition = "2024"
 [dependencies]
 chrono = "0.4.44"
 clap = { version = "4.5.39", features = ["derive"] }
-escpos = { version = "0.17.0", features = ["graphics", "serial_port"] }
+escpos = { version = "0.19.0", features = ["graphics", "serial_port"] }
 git-version = "0.3.9"
 image = { version = "0.25.10", default-features = false }
 miette = { version = "7.2.0", features = ["fancy"] }
